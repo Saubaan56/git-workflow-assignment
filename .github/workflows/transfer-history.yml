@@ -1,0 +1,80 @@
+name: Transfer existing Git history
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore and push prepared history
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cat > history.b64 <<'BUNDLE'
+          IyB2MiBnaXQgYnVuZGxlCmYyNzI1NzMxNGViOTc0NDRhNWEzMzBhNzE4ODBlNGJjNjA1ODc1M2MgcmVmcy9oZWFkcy9mZWF0dXJl
+          CmUyYzUwOGU4ZWI1ODFjNDQ1ZTU4Y2QyOWI1NDY4MWNkY2UzNTM0YzcgcmVmcy9oZWFkcy9tYWluCgpQQUNLAAAAAgAAABiQE3ic
+          rY9LagMxEET3OkXvDYO+rRkIIQfIKiYHaEmtWJCRjEZa+PYeb3KC1PJRvKJGZwZvCHNSll0yKZH3jkxYrY0uJeuDzkiJcGNxp851
+          gLaUJMaAITvUarOcSccVPRs2UmYT1epd9oLmuLUOV5qBqDqEN62l1hbRXP7gxzy4H0ttne+/j+WnjNsMS2z7Oyi/WY8OlYWLPCNO
+          upcx+D+d4soDzl47ymj9Ad9fn1AqvKaoJkgtzv18TaO0Kp7Kq14YkxV4nK2NMW7EIBBFe05Bv5IFwwxgKVrlAqlyggGGtaUYr1go
+          cvu4SU6QVz49/T+6iEa0mWyKmDEYcM4ReE+lJOYAJkWH0awFvXpylzY0gZXKdSXkUsCuWCpZn1PBaJ2pBLVgphJ/+woBKDiLktaA
+          iEzsnOFgYzSCKXtDMZDLiufYzq4/eV7Xjbx+AzAA6L27/cn3+ZL+WtrZ5fn1vTz2sc205PO4axtWDJ6sCfpmLtRlj30M+c9N9SH9
+          IboKj9lFp84tb3pv49QH7039AIgOZD/kA4BReJy7zLSOaULcxL5lWo4pKQrJ+XklicklCpl5aflFuYklmfl5CkCUlppYUlqUqpBU
+          lJiXnMEFACCEE9+VEnicrY9LagMxEET3OoX2hkGjT7cExmQRyAFyglZLtgc8GqPPIreP7EVOkFoVb1HF6zVn6a+QETAyxKCdctqZ
+          lTzE6PUaJk4JleGgxZNqLl0yOs8IJrFDuFJILllK4JLhSNmzVmws2CBo9PtR5TeNSFQcyLPWSmsLYE5/8GO0XNtSjpqfj5/ltvX7
+          iAsf+0WuGCyCWxXKk5oRk+5b7/k/N8XnwWN/eVFr262869c2NecZldTELxAVWWOSEnicrcw9bsMwDEDhXafgHsCQqF8DRdE7FDkA
+          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
+          315EFAU4onPCAn49
+          BUNDLE
+          base64 --decode history.b64 > history.bundle
+          git clone --branch main history.bundle project
+          cd project
+          git branch feature origin/feature
+          git remote set-url origin https://github.com/Saubaan56/git-workflow-assignment.git
+          header=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $header" push --force origin main feature
+          git log --oneline --graph --decorate --all
