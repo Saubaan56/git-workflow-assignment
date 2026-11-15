@@ -12,10 +12,10 @@ Repeated checks may be run at more than one stage.
 3. git branch -M main
    Names the current branch main.
 
-4. git config user.name "Your Name"
+4. git config user.name "Saubaan56"
    Sets the commit author name for this repository only.
 
-5. git config user.email "your-email"
+5. git config user.email "YOUR_GITHUB_NOREPLY_EMAIL"
    Sets the commit author email for this repository only.
 
 6. git add index.html about.html
@@ -87,8 +87,8 @@ Repeated checks may be run at more than one stage.
 28. git commit -m "Document assignment Git commands"
    Records the command documentation.
 
-29. git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-   Connects the local repository to the real empty public GitHub repository. Replace both uppercase values.
+29. git remote add origin https://github.com/Saubaan56/git-workflow-assignment.git
+   Connects the local repository to the real empty public GitHub repository. This is the project repository URL.
 
 30. git remote -v
    Checks the configured fetch and push URLs.
