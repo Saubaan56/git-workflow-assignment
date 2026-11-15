@@ -1,0 +1,104 @@
+GIT COMMAND DOCUMENTATION
+
+Commands are listed in execution order. Replace identity and URL values locally.
+Repeated checks may be run at more than one stage.
+
+1. git --version
+   Checks that Git is installed and shows its version.
+
+2. git init
+   Initializes the repository locally, before creating the GitHub repository.
+
+3. git branch -M main
+   Names the current branch main.
+
+4. git config user.name "Your Name"
+   Sets the commit author name for this repository only.
+
+5. git config user.email "your-email"
+   Sets the commit author email for this repository only.
+
+6. git add index.html about.html
+   Stages the two initial HTML files.
+
+7. git commit -m "Add initial website pages"
+   Records the first version of the website.
+
+8. git add index.html
+   Stages the edited home page. Used for both the introduction and temporary announcement.
+
+9. git commit -m "Update home page introduction"
+   Records the second version after modifying index.html.
+
+10. git branch feature
+   Creates a branch named feature at the current commit.
+
+11. git switch feature
+   Switches the working directory to feature.
+
+12. git add about.html
+   Stages the contact paragraph added on feature.
+
+13. git commit -m "Add contact information on feature branch"
+   Records the feature change on its own branch.
+
+14. git switch main
+   Returns to main before merging.
+
+15. git merge --no-ff feature -m "Merge feature branch into main"
+   Merges feature and creates an explicit merge commit so branch activity is visible.
+
+16. git log --oneline --graph --decorate --all
+   Shows abbreviated commits, branch labels and the branch/merge graph.
+
+17. git check-ignore -v debug.log temp/notes.txt
+   Shows which .gitignore rules ignore the two sample files.
+
+18. git status --short --ignored
+   Shows ignored files alongside the short repository status.
+
+19. git add .gitignore
+   Stages the ignore rules.
+
+20. git commit -m "Ignore log files and temporary folder"
+   Records the .gitignore file.
+
+21. git commit -m "Add temporary announcement"
+   Records an additional home-page change for the undo demonstration.
+
+22. git show --stat --oneline HEAD
+   Shows the additional commit and the files it changed before undoing it.
+
+23. git revert --no-edit HEAD
+   Creates a new commit reversing the latest commit, retaining the original history.
+
+24. git show --oneline HEAD
+   Shows the revert commit and the reverse patch.
+
+25. git diff HEAD~2 HEAD -- index.html
+   Immediately after reverting, compares index.html with its pre-change version. Empty output means they match.
+
+26. git status
+   Checks the working tree. A clean state is expected after committed changes.
+
+27. git add git_commands.txt
+   Stages the command documentation copied into the repository.
+
+28. git commit -m "Document assignment Git commands"
+   Records the command documentation.
+
+29. git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+   Connects the local repository to the real empty public GitHub repository. Replace both uppercase values.
+
+30. git remote -v
+   Checks the configured fetch and push URLs.
+
+31. git push -u origin main
+   Uploads main, including its merged feature history, and sets its upstream.
+
+32. git push -u origin feature
+   Uploads the feature branch so it remains directly inspectable on GitHub.
+
+Non-Git operations: mkdir creates folders; cd changes folders; cat/printf write
+HTML and ignore rules; cp copies this documentation into the project. The script
+uses tee to record real terminal output. These operations are not Git commands.
